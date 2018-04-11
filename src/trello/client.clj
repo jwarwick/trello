@@ -60,6 +60,7 @@
     (throw (Throwable. "You must create a consumer first (Trello API key + secret).")))
   (let [uri (str base-url path)
         options {:url uri
+                 :cookie-policy :standard
                  :method (lowercase-keyword method)
                  :query-params (merge params (sign method uri params))}]
     (-> (client/request options)
