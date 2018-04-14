@@ -1,10 +1,11 @@
 (ns trello.client
   (:require
-   [clojure.core.typed :refer [ann cf check-ns U Keyword HMap Val Any Map]]
-   [clj-http.client :as client]
-   [trello.core :refer [consumer *oauth-token* *oauth-secret*]]
-   [oauth.client :as oauth]
-   [clojure.data.json :as json]))
+    [clojure.core.typed :refer [ann cf check-ns U Keyword HMap Val Any Map]]
+    [clj-http.client :as client]
+    [trello.core :refer [consumer *oauth-token* *oauth-secret*]]
+    [oauth.client :as oauth]
+    [clojure.data.json :as json])
+  (:refer-clojure :exclude [get]))
 
 ;; prevent these from blowing up the type checker
 (ann ^:no-check clj-http.client/get [Any * -> Any])

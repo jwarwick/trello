@@ -1,4 +1,4 @@
-(defproject jwarwick/trello "0.3.1"
+(defproject jwarwick/trello "0.3.2"
   :description "Clojure wrapper for the Trello API (forked from me.bsima/trello)"
   :url "https://github.com/jwarwick/trello"
   :license {:name "Eclipse Public License"
