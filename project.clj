@@ -6,7 +6,7 @@
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [clj-http "3.7.0"]
                  [clj-oauth "1.5.2"]
-                 [org.clojure/core.typed "0.3.11"]
+                 [org.clojure/core.typed "0.5.0"]
                  [org.clojure/data.json "0.2.5"]
                  [org.clojure/tools.cli "0.3.3"]]
   :scm {:name "git"
