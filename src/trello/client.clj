@@ -5,6 +5,7 @@
     [trello.core :refer [consumer *oauth-token* *oauth-secret*]]
     [oauth.client :as oauth]
     [clojure.data.json :as json])
+  (:use [slingshot.slingshot :only [throw+ try+]])
   (:refer-clojure :exclude [get]))
 
 ;; prevent these from blowing up the type checker
@@ -64,9 +65,19 @@
                  :cookie-policy :standard
                  :method (lowercase-keyword method)
                  :query-params (merge params (sign method uri params))}]
-    (-> (client/request options)
-      (:body)
-      (json/read-str :key-fn keyword))))
+    (try+
+      (-> (client/request options)
+        (:body)
+        (json/read-str :key-fn keyword))
+      (catch [:status 502] {:keys [headers]}
+        (println "Trello Unavailable: 502" headers))
+      (catch [:status 503] {:keys [headers]}
+        (println "Trello Unavailable: 503" headers))
+      (catch [:status 504] {:keys [headers]}
+        (println "Trello Unavailable: 504" headers))
+      (catch Object _
+        (println "Unexpected Trello error")
+        (throw+)))))
 
 (ann get [String & :optional {:params Map} -> Any])
 (defn get [resource & {params :params}]
